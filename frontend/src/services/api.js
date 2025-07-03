@@ -33,3 +33,19 @@ export const fetchJobs = async () => {
 
   return allJobs;
 };
+
+export const searchJobs = async (query) => {
+  const params = new URLSearchParams({
+    query: query,
+    page: '1',
+  });
+
+  const res = await fetch(`${API_URL}?${params}`, {
+    method: 'GET',
+    headers,
+  });
+
+  const data = await res.json();
+  return data.data;
+};
+

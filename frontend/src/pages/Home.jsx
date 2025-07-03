@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobCard from "../components/JobCard";
-import { fetchJobs } from "../services/api";
+import { fetchJobs, searchJobs } from "../services/api";
 import "../css/Home.css";
 
 function Home() {
@@ -15,13 +15,33 @@ function Home() {
     });
   }, []);
 
+  const handleSearchJobs = async (e)=>{
+    e.preventDefault();
+    if(!searchJob.trim()) return
+    if(loading) return
+
+    setLoading(true)
+    
+    try{
+        const searchResults = await searchJobs(searchJob)
+        setJobs(searchResults)
+        setLoading(false);
+
+    }catch(err){
+      console.log(err);
+      
+    }
+    
+
+  }
+
   const filteredJobs = jobs.filter((job) =>
     job.job_title.toLowerCase().startsWith(searchJob.toLowerCase())
   );
 
   return (
     <div className="home">
-      <form className="search-form" onSubmit={(e) => e.preventDefault()}>
+      <form className="search-form" onSubmit={handleSearchJobs}>
         <input
           type="text"
           placeholder="Search for job using job title."
@@ -34,15 +54,17 @@ function Home() {
         </button>
       </form>
 
-      <div className="movies-grid">
-        {loading ? (
-          <p style={{ color: "white" }}>Loading jobs...</p>
-        ) : filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => <JobCard job={job} key={job.job_id} />)
-        ) : (
-          <p style={{ color: "white" }}>No jobs found.</p>
-        )}
-      </div>
+
+      {loading ? (
+        <div className="loading">Loading jobs...</div>
+      ) : (
+        <div className="movies-grid">
+          {jobs.map((job) => (
+            <JobCard job={job} key={job.job_id} />
+          ))}
+        </div>
+      )}
+
     </div>
   );
 }
