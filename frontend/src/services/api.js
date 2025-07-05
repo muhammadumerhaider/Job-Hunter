@@ -24,7 +24,7 @@ export const fetchJobs = async () => {
 
       const data = await response.json();
       console.log('data ',data);
-      
+           
       allJobs = [...allJobs, ...data.data]; 
     } catch (error) {
       console.error(`Failed to fetch page ${page}:`, error);

@@ -58,8 +58,10 @@ function Home() {
       {loading ? (
         <div className="loading">Loading jobs...</div>
       ) : (
-        <div className="movies-grid">
+        <div className="jobs-grid">
           {jobs.map((job) => (
+            // console.log(job)
+            
             <JobCard job={job} key={job.job_id} />
           ))}
         </div>

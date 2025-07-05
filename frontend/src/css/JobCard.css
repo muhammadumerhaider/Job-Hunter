@@ -38,20 +38,27 @@
 
 .favorite-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
+  top: 1rem;
+  right: 1rem;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
-  padding: 8px 10px;
-  font-size: 18px;
-  color: #ee0a0a;
-  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.2s;
 }
 
 .favorite-btn:hover {
-  background-color: rgba(255, 107, 129, 0.1);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.favorite-btn.active {
+  color: #ff4757;
 }
 
 .job-card-body {
@@ -84,5 +91,10 @@
 @media (max-width: 500px) {
   .job-card {
     max-width: 100%;
+  }
+    .favorite-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
   }
 }
