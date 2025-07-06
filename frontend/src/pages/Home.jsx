@@ -15,25 +15,21 @@ function Home() {
     });
   }, []);
 
-  const handleSearchJobs = async (e)=>{
+  const handleSearchJobs = async (e) => {
     e.preventDefault();
-    if(!searchJob.trim()) return
-    if(loading) return
+    if (!searchJob.trim()) return;
+    if (loading) return;
 
-    setLoading(true)
-    
-    try{
-        const searchResults = await searchJobs(searchJob)
-        setJobs(searchResults)
-        setLoading(false);
+    setLoading(true);
 
-    }catch(err){
+    try {
+      const searchResults = await searchJobs(searchJob);
+      setJobs(searchResults);
+      setLoading(false);
+    } catch (err) {
       console.log(err);
-      
     }
-    
-
-  }
+  };
 
   const filteredJobs = jobs.filter((job) =>
     job.job_title.toLowerCase().startsWith(searchJob.toLowerCase())
@@ -54,19 +50,17 @@ function Home() {
         </button>
       </form>
 
-
       {loading ? (
         <div className="loading">Loading jobs...</div>
       ) : (
         <div className="jobs-grid">
           {jobs.map((job) => (
             // console.log(job)
-            
+
             <JobCard job={job} key={job.job_id} />
           ))}
         </div>
       )}
-
     </div>
   );
 }

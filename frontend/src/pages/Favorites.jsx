@@ -2,14 +2,11 @@ import "../css/Favorites.css";
 import { UseJobContext } from "../contexts/JobContext";
 import JobCard from "../components/JobCard";
 
-
 export default function Favorites() {
+  const { favorites } = UseJobContext();
+  console.log("favorites ", favorites);
 
-  const {favorites} = UseJobContext();
-  console.log('favorites ',favorites);
-  
-
-  if(favorites.length>=1){
+  if (favorites.length >= 1) {
     return (
       <div className="favorites">
         <h2>Your Favorites</h2>
@@ -20,13 +17,12 @@ export default function Favorites() {
         </div>
       </div>
     );
-  }else{
-  return (
-    <div className="favorites-empty">
-      <h2>No Favorite Movies Yet</h2>
-      <p>Start adding movies to your favorites and they will appear here.</p>
-    </div>
-  );
+  } else {
+    return (
+      <div className="favorites-empty">
+        <h2>No Favorite Movies Yet</h2>
+        <p>Start adding movies to your favorites and they will appear here.</p>
+      </div>
+    );
   }
-
 }
