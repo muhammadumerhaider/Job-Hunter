@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { fetchJobs } from "../services/api";
 
 const JobContext = createContext();
 
@@ -6,6 +7,18 @@ export const UseJobContext = () => useContext(JobContext);
 
 export const JobProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
+  const [allJobs, setAllJobs] = useState([]);
+
+  useEffect(()=>{
+    async function fetchJobData() {
+      const jobs =  await fetchJobs();
+      setAllJobs(jobs);
+    }
+
+    fetchJobData(); 
+  }, []);
+
+  
 
   useEffect(() => {
     const storedFavs = localStorage.getItem("favorites");
@@ -35,6 +48,7 @@ export const JobProvider = ({ children }) => {
     isFavorite,
     addToFavorites,
     removeFromFavorites,
+    allJobs
   };
 
   return <JobContext.Provider value={value}>{children}</JobContext.Provider>;
