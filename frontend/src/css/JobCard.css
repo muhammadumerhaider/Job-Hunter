@@ -87,6 +87,28 @@
   margin: 4px 0;
 }
 
+.job-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.view-details {
+  background-color: cornflowerblue;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.view-details:hover {
+  background-color: royalblue;
+}
+
 /* Responsive */
 @media (max-width: 500px) {
   .job-card {

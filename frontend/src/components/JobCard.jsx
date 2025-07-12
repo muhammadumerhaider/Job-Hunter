@@ -1,10 +1,14 @@
 import "../css/JobCard.css";
 import { UseJobContext } from "../contexts/JobContext";
+import { useNavigate } from "react-router-dom";
 
 function JobCard({ job }) {
-  const { isFavorite, addToFavorites, removeFromFavorites } = UseJobContext();
+  const { isFavorite, addToFavorites, removeFromFavorites, allJobs } =
+    UseJobContext();
 
   const favorite = isFavorite(job.job_id);
+
+  const navigate = useNavigate();
 
   function onFavClick(e) {
     e.preventDefault();
@@ -13,6 +17,19 @@ function JobCard({ job }) {
     } else {
       addToFavorites(job);
     }
+  }
+
+  function getViewDetail(job_id) {
+    return allJobs?.find((job) => job.job_id === job_id);
+  }
+
+  function viewDetailsMethod(e) {
+    e.preventDefault();
+    const jobDetails = getViewDetail(job.job_id);
+    console.log("aaa ", jobDetails);
+    jobDetails === undefined
+      ? alert("Job not found. Please try again later.")
+      : navigate("/viewDetails", { state: { job: jobDetails } });
   }
 
   return (
@@ -43,10 +60,15 @@ function JobCard({ job }) {
           {job.job_salary_currency}
         </p>
 
-        <p className="posted-date">
-          🕒 Posted on{" "}
-          {new Date(job.job_posted_at_datetime_utc).toLocaleDateString()}
-        </p>
+        <div className="job-footer">
+          <p className="posted-date">
+            🕒 Posted on{" "}
+            {new Date(job.job_posted_at_datetime_utc).toLocaleDateString()}
+          </p>
+          <button className="view-details" onClick={viewDetailsMethod}>
+            View Details
+          </button>
+        </div>
       </div>
     </div>
   );
