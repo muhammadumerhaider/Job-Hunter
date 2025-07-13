@@ -12,7 +12,7 @@ function Home() {
     fetchJobs().then((data) => {
       setJobs(data);
       setLoading(false);
-    });
+    })
   }, []);
 
   const handleSearchJobs = async (e) => {
@@ -30,10 +30,6 @@ function Home() {
       console.log(err);
     }
   };
-
-  const filteredJobs = jobs.filter((job) =>
-    job.job_title.toLowerCase().startsWith(searchJob.toLowerCase())
-  );
 
   return (
     <div className="home">
@@ -55,12 +51,11 @@ function Home() {
       ) : (
         <div className="jobs-grid">
           {jobs.map((job) => (
-            // console.log(job)
-
             <JobCard job={job} key={job.job_id} />
           ))}
         </div>
       )}
+
     </div>
   );
 }
